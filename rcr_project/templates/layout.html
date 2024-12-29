@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+{% load tailwind_tags %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    {% tailwind_css %}
+</head>
+<body class="bg-gray-100 flex flex-col min-h-screen">
+    <!-- Fixed Navbar -->
+    <nav class="bg-green-600 text-white fixed top-0 left-0 w-full z-50 shadow-md">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-start items-center py-4 space-x-6">
+                <!-- Logo -->
+                <div class="text-lg font-bold">
+                    <a href="{% url "rcr_home" %}" class="hover:text-gray-200">RCR</a>
+                </div>
+
+                <!-- Links -->
+                <a href="{% url "rcr_home" %}" class="hover:text-gray-200">Home</a>
+                <a href="{% url "about" %}" class="hover:text-gray-200">About</a>
+                <a href="{% url "rcr_home" %}" class="hover:text-gray-200">Features</a>
+
+                <!-- Login Dropdown -->
+                <div class="relative group">
+                    <a class="nav-link dropdown-toggle hover:text-gray-200 cursor-pointer text-sm" id="loginDropdown" role="button">
+                        Login
+                    </a>
+                    <ul class="absolute hidden group-hover:block bg-white text-gray-800 mt-2 w-48 rounded-lg shadow-lg">
+                        <li><a class="dropdown-item block px-4 py-2 hover:bg-gray-100 hover:text-green-600 text-sm transition text-left" href="{% url 'accounts_login' user_type='teacher' %}">Teacher Login</a></li>
+                        <li><a class="dropdown-item block px-4 py-2 hover:bg-gray-100 hover:text-green-600 text-sm transition text-left" href="{% url 'accounts_login' user_type='student' %}">Student Login</a></li>
+                    </ul>
+                </div>
+
+                <!-- Signup Dropdown -->
+                <div class="relative group">
+                    <a class="nav-link dropdown-toggle hover:text-gray-200 cursor-pointer text-sm" id="signupDropdown" role="button">
+                        Sign Up
+                    </a>
+                    <ul class="absolute hidden group-hover:block bg-white text-gray-800 mt-2 w-48 rounded-lg shadow-lg">
+                        <li><a class="dropdown-item block px-4 py-2 hover:bg-gray-100 hover:text-green-600 text-sm transition text-left" href="{% url 'accounts_signup' user_type='teacher' %}">Teacher Sign Up</a></li>
+                        <li><a class="dropdown-item block px-4 py-2 hover:bg-gray-100 hover:text-green-600 text-sm transition text-left" href="{% url 'accounts_signup' user_type='student' %}">Student Sign Up</a></li>
+                    </ul>
+                </div>
+
+                <!-- Authenticated User Dropdown -->
+                {% if user.is_authenticated %}
+                <div class="relative group">
+                    <button class="flex items-center space-x-2 hover:text-gray-200 focus:outline-none text-sm">
+                        <span>{{ user.username }}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <ul class="absolute hidden group-hover:block bg-white text-gray-800 mt-2 w-48 rounded-lg shadow-lg">
+                        <li><a class="dropdown-item block px-4 py-2 hover:bg-gray-100 hover:text-green-600 text-sm transition text-left" href="{% url "accounts_profile"  %}">Account</a></li>
+                        <li><a class="dropdown-item block px-4 py-2 hover:bg-gray-100 hover:text-green-600 text-sm transition text-left" href="{% url "accounts_logout" %}">Logout</a></li>
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content Section -->
+    <div class="flex-grow pt-20">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-green-600 text-white text-center py-4 mt-4">
+        <div class="container mx-auto">
+            <p class="text-sm">&copy; 2024 RCR. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
