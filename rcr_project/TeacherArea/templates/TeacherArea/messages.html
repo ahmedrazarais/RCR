@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block title %}Inbox Teacher{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-100">
+  <!-- Heading Section -->
+  <div class="bg-gradient-to-b from-green-700 to-green-800 text-white py-12 shadow-md">
+    <div class="max-w-6xl mx-auto px-4 text-center">
+      <h1 class="text-4xl font-bold">Inbox</h1>
+      <p class="text-md mt-2 font-medium text-gray-300">View and manage all your messages in one place.</p>
+    </div>
+  </div>
+
+  <!-- Messages Section -->
+  <div class="max-w-6xl mx-auto px-4 py-10">
+    {% if messages %}
+      <!-- Messages Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for message in messages %}
+          <!-- Single Message Card -->
+          <div class="block rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105 hover:shadow-xl border border-gray-200 bg-green-100">
+            <p class="text-lg font-semibold text-gray-800 mb-2">
+              <strong>From:</strong> {{ message.sender.user.username }}
+            </p>
+            <p class="text-sm text-gray-700 mt-2">{{ message.content }}</p>
+            <!-- Reply Button -->
+            <div class="mt-4">
+              <button class="bg-green-600 text-white text-sm font-medium py-2 px-4 rounded hover:bg-green-700 transition">
+                Reply
+              </button>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <!-- No Messages Found -->
+      <div class="flex justify-center items-center h-64">
+        <p class="text-lg text-gray-600 font-medium">No messages available.</p>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
