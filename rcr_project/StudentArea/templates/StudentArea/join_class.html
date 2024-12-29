@@ -1,0 +1,83 @@
+{% extends "layout.html" %}
+
+{% block title %}Join Class{% endblock %}
+
+{% block content %}
+<div class="flex justify-center items-center min-h-screen bg-gray-100">
+  <!-- Container -->
+  <div class="bg-white shadow-xl rounded-lg w-full max-w-md p-8">
+    <!-- Title -->
+    <h2 class="text-2xl font-semibold text-center text-gray-800 mb-6">
+      Join a Class
+    </h2>
+    
+    <!-- Error Messages -->
+    {% if messages %}
+    <div class="mb-4">
+      {% for message in messages %}
+        <div class="p-2 text-sm rounded-md 
+          {% if message.tags == 'error' %}bg-red-100 text-red-700{% elif message.tags == 'success' %}bg-green-100 text-green-700{% endif %}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+    
+    <!-- Form -->
+    <form method="post" class="space-y-6">
+      {% csrf_token %}
+      
+      <!-- Select Class -->
+      <div>
+        <label for="class_id" class="block text-sm font-medium text-gray-700">
+          Select a Class
+        </label>
+        <select 
+          name="class_id"
+          id="class_id"
+          class="mt-1 block w-full rounded-md border-2 border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-500 p-2"
+        >
+          {% for option in form.class_id.field.choices %}
+          <option value="{{ option.0 }}" {% if option.0 == form.class_id.value %}selected{% endif %}>
+            {{ option.1 }}
+          </option>
+          {% endfor %}
+        </select>
+        {% if form.class_id.errors %}
+        <p class="text-sm text-red-600 mt-1">{{ form.class_id.errors|striptags }}</p>
+        {% endif %}
+      </div>
+      
+      <!-- Class Code -->
+      <div>
+        <label for="class_code" class="block text-sm font-medium text-gray-700">
+          Class Code
+        </label>
+        <input 
+          type="text"
+          name="class_code"
+          id="class_code"
+          value="{{ form.class_code.value|default:'' }}"
+          class="mt-1 block w-full rounded-md border-2 border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-500 p-2"
+          placeholder="Enter Class Code"
+        >
+        {% if form.class_code.errors %}
+        <p class="text-sm text-red-600 mt-1">{{ form.class_code.errors|striptags }}</p>
+        {% endif %}
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" 
+              class="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md shadow-md transition">
+        Join Class
+      </button>
+    </form>
+    
+    <!-- Footer -->
+    <p class="text-sm text-gray-600 text-center mt-4">
+      Need to go back? 
+      <a href="#" class="text-blue-600 hover:underline">Go to Dashboard</a>.
+    </p>
+  </div>
+</div>
+{% endblock %}
