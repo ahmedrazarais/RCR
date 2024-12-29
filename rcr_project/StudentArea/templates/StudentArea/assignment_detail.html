@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+
+{% block title %}Upload Assignment{% endblock %}
+
+{% block content %}
+<div class="flex justify-center items-center min-h-screen bg-gray-100">
+  <!-- Container -->
+  <div class="bg-white shadow-xl rounded-lg w-full max-w-md p-8 border-2 border-green-500">
+    
+    <!-- Top Heading -->
+    <h1 class="text-3xl font-semibold text-center text-green-700 mb-6">
+      Assignment Update
+    </h1>
+    
+    <!-- Assignment Title -->
+    <h2 class="text-2xl font-semibold text-center text-green-700 mb-6">
+      {{ assignment.title }}
+    </h2>
+    
+    <p class="text-gray-600 text-center mb-4">{{ assignment.description }}</p>
+    <p class="text-center text-sm font-medium text-red-500 mb-6">
+      Due Date: {{ assignment.due_date }}
+    </p>
+    
+    {% if submission %}
+    <!-- Submission Details -->
+    <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+      <h3 class="text-green-700 font-semibold mb-2">Your Submission</h3>
+      <p class="text-gray-700">
+        <span class="font-medium">Submitted on:</span> 
+        {{ submission.submitted_at }}
+      </p>
+      <a href="{{ submission.file.url }}" download
+         class="mt-4 inline-block text-green-600 hover:underline">
+        Download Your File
+      </a>
+    </div>
+    {% else %}
+    <!-- Upload Form -->
+    <form method="post" enctype="multipart/form-data" class="space-y-6">
+      {% csrf_token %}
+      <div>
+        <label for="file" class="block text-sm font-medium text-gray-700">
+          Upload File
+        </label>
+        <input 
+          type="file" 
+          name="file" 
+          id="file" 
+          required 
+          class="mt-1 block w-full rounded-md border-2 border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-500 p-2"
+        >
+      </div>
+      <button type="submit" 
+              class="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md shadow-md transition">
+        Turn In
+      </button>
+    </form>
+    {% endif %}
+    
+    <!-- Back to Assignments -->
+    <p class="text-sm text-gray-600 text-center mt-4">
+      Need to go back? 
+      <a href="#" class="text-green-600 hover:underline">View All Assignments</a>.
+    </p>
+  </div>
+</div>
+{% endblock %}
