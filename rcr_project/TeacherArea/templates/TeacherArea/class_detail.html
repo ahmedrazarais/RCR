@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+
+{% block title %}Class Details{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-100">
+  <!-- Heading Section -->
+  <div class="bg-gradient-to-b from-gray-700 to-gray-800 text-white py-12 shadow-md">
+    <div class="max-w-6xl mx-auto px-4 text-center">
+      <h1 class="text-4xl font-bold">{{ class.course_name }} - Details</h1>
+      <p class="text-md mt-2 font-medium text-gray-300">Manage and view all your uploaded files, assignments, and announcements for this class.</p>
+    </div>
+  </div>
+
+  <!-- Class Details Section -->
+  <div class="max-w-6xl mx-auto px-4 py-10">
+    <!-- Class Info Box -->
+    <div class="bg-green-200 p-6 rounded-none mb-8 w-full transition-transform transform hover:scale-105 hover:shadow-xl hover:bg-green-300">
+      <h2 class="text-2xl font-semibold text-gray-800">{{ class.course_name }}</h2>
+      <p class="text-sm text-gray-600"><strong>Department:</strong> {{ class.department_name }}</p>
+      <p class="text-sm text-gray-600"><strong>Class Code:</strong> {{ class.class_code }}</p>
+      <p class="text-sm text-gray-700 mt-2"><strong>Description:</strong> 
+        {% if class.description %}
+          {{ class.description }}
+        {% else %}
+          <span class="text-gray-500">No description provided.</span>
+        {% endif %}
+      </p>
+    </div>
+
+    <!-- Uploaded Files Section -->
+    <div class="mb-10">
+      <h3 class="text-xl font-semibold text-gray-800 mb-4">Uploaded Files</h3>
+      {% if files %}
+        <ul class="space-y-6">
+          {% for file in files %}
+            <li class="bg-blue-100 p-6 rounded-none w-full shadow-md transition-all hover:scale-105 hover:shadow-xl hover:bg-blue-200 hover:text-blue-600">
+              <a href="{{ file.file.url }}" class="text-blue-600 hover:underline text-lg font-medium">{{ file.file.name }}</a>
+              <p class="text-sm text-gray-600 mt-2">{{ file.description }}</p>
+              <p class="text-xs text-gray-500 mt-1">Uploaded on: {{ file.uploaded_at|date:"F j, Y" }}</p>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="text-gray-600">You haven't uploaded any files yet for this class.</p>
+      {% endif %}
+    </div>
+
+    <!-- Assignments Section -->
+    <div class="mb-10">
+      <h3 class="text-xl font-semibold text-gray-800 mb-4">Assignments</h3>
+      {% if assignments %}
+        <ul class="space-y-6">
+          {% for assignment in assignments %}
+            <li class="bg-yellow-100 p-6 rounded-none w-full shadow-md transition-all hover:scale-105 hover:shadow-xl hover:bg-yellow-200 hover:text-yellow-600">
+              <h4 class="text-lg font-medium text-gray-800">{{ assignment.title }}</h4>
+              <p class="text-sm text-gray-600 mt-2">{{ assignment.description }}</p>
+              <p class="text-sm text-gray-600"><strong>Due Date:</strong> {{ assignment.due_date|date:"F j, Y" }}</p>
+              <a href="{{ assignment.file.url }}" class="text-blue-600 hover:underline text-sm font-medium mt-2 block">Download Assignment</a>
+              <p class="text-xs text-gray-500 mt-1">Uploaded on: {{ assignment.uploaded_at|date:"F j, Y" }}</p>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="text-gray-600">No assignments uploaded yet for this class.</p>
+      {% endif %}
+    </div>
+
+    <!-- Announcements Section -->
+    <div class="mt-10">
+      <h3 class="text-xl font-semibold text-gray-800 mb-4">Announcements</h3>
+      {% if announcements %}
+        <ul class="space-y-6">
+          {% for announcement in announcements %}
+            <li class="bg-pink-100 p-6 rounded-none w-full shadow-md transition-all hover:scale-105 hover:shadow-xl hover:bg-pink-200 hover:text-pink-600">
+              <h4 class="text-lg font-medium text-gray-800">{{ announcement.title }}</h4>
+              <p class="text-sm text-gray-600 mt-2">{{ announcement.content }}</p>
+              <p class="text-xs text-gray-500 mt-1">Posted on: {{ announcement.date_created|date:"F j, Y" }}</p>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="text-gray-600">No announcements posted yet for this class.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
