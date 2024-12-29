@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}Account Settings{% endblock %}
+
+{% block content %}
+<div class="container mx-auto p-6">
+    
+    <h1 class="text-3xl font-bold mb-8 text-center text-gray-900">Welcome! Change Your Profile Settings</h1>
+
+    <!-- Change Email Box -->
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        <!-- Change Email Box -->
+        <div class="bg-white rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out hover:bg-green-50">
+            <a href="{% url 'accounts_recovery' update_type='email' %}" class="block p-6 text-center text-gray-700">
+                <div class="text-xl font-semibold mb-4 text-gray-900">Change Your Email</div>
+                <p class="text-sm text-gray-500">Update your email address for account notifications.</p>
+            </a>
+        </div>
+
+        <!-- Change Password Box -->
+        <div class="bg-white rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out hover:bg-green-50">
+            <a href="{% url 'accounts_recovery' update_type='password' %}" class="block p-6 text-center text-gray-700">
+                <div class="text-xl font-semibold mb-4 text-gray-900">Change Your Password</div>
+                <p class="text-sm text-gray-500">Change your password to keep your account secure.</p>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
