@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}Assignment Submissions{% endblock %}
+
+{% block content %}
+<!-- Teacher view for submissions -->
+<div class="container mx-auto mt-8 px-6 lg:px-16">
+    <h1 class="text-4xl font-bold text-green-700 mb-8 text-center">Assignment Submissions</h1>
+
+    <div class="overflow-x-auto bg-white rounded-lg shadow-lg border border-gray-200">
+        <table class="min-w-full table-auto text-gray-800">
+            <thead class="bg-green-600 text-white">
+                <tr>
+                    <th class="py-4 px-6 text-left border-b">Student</th>
+                    <th class="py-4 px-6 text-left border-b">Assignment</th>
+                    <th class="py-4 px-6 text-left border-b">Uploaded File</th>
+                    <th class="py-4 px-6 text-left border-b">Submission Time</th>
+                    <th class="py-4 px-6 text-left border-b">Feedback</th>
+                    <th class="py-4 px-6 text-left border-b">Grade</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for submission in submissions %}
+                <tr class="hover:bg-green-50 transition duration-200 ease-in-out">
+                    <td class="py-4 px-6 border-b text-sm">{{ submission.student.user.username }}</td>
+                    <td class="py-4 px-6 border-b text-sm">{{ submission.assignment.title }}</td>
+                    <td class="py-4 px-6 border-b text-sm">
+                        <a href="{{ submission.file.url }}" target="_blank" class="text-green-600 hover:underline text-xs sm:text-sm">
+                            View File
+                        </a>
+                    </td>
+                    <td class="py-4 px-6 border-b text-sm text-gray-600">{{ submission.submitted_at|date:"M d, Y H:i" }}</td>
+                    <td class="py-4 px-6 border-b text-sm text-gray-600">{{ submission.feedback|default:"No feedback yet" }}</td>
+                    <td class="py-4 px-6 border-b text-sm text-gray-600">{{ submission.grade|default:"Not graded" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="py-4 px-6 text-center text-sm text-gray-600">No submissions available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
