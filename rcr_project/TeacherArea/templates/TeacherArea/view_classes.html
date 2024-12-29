@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}All Classes{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-100">
+  <!-- Heading Section -->
+  <div class="bg-gradient-to-b from-green-700 to-green-800 text-white py-12 shadow-md">
+    <div class="max-w-6xl mx-auto px-4 text-center">
+      <h1 class="text-4xl font-bold">All Classes</h1>
+      <p class="text-md mt-2 font-medium text-gray-300">Manage and explore all your created classes in one place.</p>
+    </div>
+  </div>
+
+  <!-- Classes Section -->
+  <div class="max-w-6xl mx-auto px-4 py-10">
+    {% if classes %}
+      <!-- Classes Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for class in classes %}
+          <!-- Single Class Card -->
+          <a href="{% url 'class_detail' class.id %}" 
+             class="block rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105 hover:shadow-xl border border-gray-200
+             {% cycle 'bg-green-100' 'bg-yellow-100' 'bg-blue-100' 'bg-pink-100' 'bg-purple-100' 'bg-orange-100' %}">
+            <h2 class="text-xl font-semibold text-gray-800 mb-2">{{ class.course_name }}</h2>
+            <p class="text-sm text-gray-600 mb-1"><strong>Department:</strong> {{ class.department_name }}</p>
+            <p class="text-sm text-gray-600 mb-1"><strong>Class Code:</strong> {{ class.class_code }}</p>
+            {% if class.description %}
+              <p class="text-sm text-gray-700 mt-2">{{ class.description }}</p>
+            {% else %}
+              <p class="text-sm text-gray-500 mt-2">No description provided.</p>
+            {% endif %}
+            <p class="text-xs text-gray-500 mt-4"><strong>Created:</strong> {{ class.date_created|date:"Y-m-d H:i" }}</p>
+          </a>
+        {% endfor %}
+      </div>
+    {% else %}
+      <!-- No Classes Found -->
+      <div class="flex justify-center items-center h-64">
+        <p class="text-lg text-gray-600 font-medium">You haven't created any classes yet.</p>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
