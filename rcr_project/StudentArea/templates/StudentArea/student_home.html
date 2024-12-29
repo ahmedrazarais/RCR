@@ -1,0 +1,140 @@
+{% extends "layout.html" %}
+
+{% block title %}Student Home{% endblock %}
+
+{% block content %}
+<div class="container mx-auto p-6">
+    <!-- Hero Section -->
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold mt-6">
+            <span class="text-red-500">W</span>
+            <span class="text-orange-500">e</span>
+            <span class="text-yellow-500">l</span>
+            <span class="text-green-500">c</span>
+            <span class="text-teal-500">o</span>
+            <span class="text-blue-500">m</span>
+            <span class="text-indigo-500">e</span>
+            <span class="text-purple-500"> </span>
+            <span class="text-pink-500">S</span>
+            <span class="text-red-500">t</span>
+            <span class="text-orange-500">u</span>
+            <span class="text-yellow-500">d</span>
+            <span class="text-green-500">e</span>
+            <span class="text-teal-500">n</span>
+            <span class="text-blue-500">t</span>
+        </h1>
+        <p class="text-gray-600 mt-2">Manage your academic journey efficiently with the options below.</p>
+    </div>
+
+      <!-- Flash Message Section -->
+    {% if messages %}
+    <div id="flash-message" class="mb-6">
+        {% for message in messages %}
+        <div class="p-4 rounded-md shadow-md 
+            {% if message.tags == 'success' %}
+                bg-green-100 border-green-500 text-green-700
+            {% elif message.tags == 'error' %}
+                bg-red-100 border-red-500 text-red-700
+            {% else %}
+                bg-gray-100 border-gray-500 text-gray-700
+            {% endif %} 
+            border">
+            <p>{{ message }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+
+    <!-- Quick Stats -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+        <div class="p-6 bg-blue-100 shadow-lg rounded-lg text-center group hover:bg-blue-200 transition duration-300">
+            <h3 class="text-2xl font-bold text-blue-600">{{total_classes}}</h3>
+            <p class="text-gray-600 mt-2">Total Classes Joined</p>
+            <p class="text-gray-500 text-sm mt-2 group-hover:text-gray-700">
+                Easily view and manage all the classes you're enrolled in.
+            </p>
+        </div>
+        <div class="p-6 bg-pink-100 shadow-lg rounded-lg text-center group hover:bg-pink-200 transition duration-300">
+            <h3 class="text-2xl font-bold text-pink-600">{{total_assignment}}</h3>
+            <p class="text-gray-600 mt-2">Total Assignments Submitted</p>
+            <p class="text-gray-500 text-sm mt-2 group-hover:text-gray-700">
+                Keep track of all your assignments and submissions.
+            </p>
+        </div>
+        <div class="p-6 bg-yellow-100 shadow-lg rounded-lg text-center group hover:bg-yellow-200 transition duration-300">
+            <h3 class="text-2xl font-bold text-yellow-600">{{message_send}}</h3>
+            <p class="text-gray-600 mt-2">Messages Sent to Teacher</p>
+            <p class="text-gray-500 text-sm mt-2 group-hover:text-gray-700">
+                Communicate directly with your teacher whenever necessary.
+            </p>
+        </div>
+    </div>
+
+    <!-- Main Options -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- View All Classes -->
+        <a href="{% url "enrolled_classes" %}" class="group block p-6 bg-blue-100 shadow-lg rounded-lg hover:bg-blue-200 transition">
+            <div class="flex items-center space-x-4">
+                <div class="p-3 bg-blue-500 rounded-full text-white group-hover:bg-blue-600">
+                    <i class="fas fa-list text-xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg font-semibold text-gray-800 group-hover:text-blue-700">View All Classes</h2>
+                    <p class="text-gray-600 text-sm">Browse through all the classes you've joined.</p>
+                </div>
+            </div>
+        </a>
+
+        <!-- Join Class -->
+        <a href="{% url "join_class" %}" class="group block p-6 bg-pink-100 shadow-lg rounded-lg hover:bg-pink-200 transition">
+            <div class="flex items-center space-x-4">
+                <div class="p-3 bg-pink-500 rounded-full text-white group-hover:bg-pink-600">
+                    <i class="fas fa-user-plus text-xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg font-semibold text-gray-800 group-hover:text-pink-700">Join Class</h2>
+                    <p class="text-gray-600 text-sm">Join new classes using a class code or invite.</p>
+                </div>
+            </div>
+        </a>
+
+        <!-- Submit Assignment -->
+        <a href="{% url "list_assignments" %}" class="group block p-6 bg-yellow-100 shadow-lg rounded-lg hover:bg-yellow-200 transition">
+            <div class="flex items-center space-x-4">
+                <div class="p-3 bg-yellow-500 rounded-full text-white group-hover:bg-yellow-600">
+                    <i class="fas fa-upload text-xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg font-semibold text-gray-800 group-hover:text-yellow-700">Submit Assignment</h2>
+                    <p class="text-gray-600 text-sm">Submit your completed assignments here.</p>
+                </div>
+            </div>
+        </a>
+
+        <!-- Message to Teacher -->
+        <a href="{% url "send_message" %}" class="group block p-6 bg-teal-100 shadow-lg rounded-lg hover:bg-teal-200 transition">
+            <div class="flex items-center space-x-4">
+                <div class="p-3 bg-teal-500 rounded-full text-white group-hover:bg-teal-600">
+                    <i class="fas fa-comment-dots text-xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg font-semibold text-gray-800 group-hover:text-teal-700">Message to Teacher</h2>
+                    <p class="text-gray-600 text-sm">Send direct messages to your teachers for queries or feedback.</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+<script>
+    // Automatically hide flash message after 3 seconds
+    setTimeout(() => {
+        const flashMessage = document.getElementById('flash-message');
+        if (flashMessage) {
+            flashMessage.style.display = 'none';
+        }
+    }, 3000);
+</script>
+
+{% endblock %}
