@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %}Enrolled Classes{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-100">
+  <!-- Heading Section -->
+  <div class="bg-gradient-to-b from-green-700 to-green-800 text-white py-12 shadow-md">
+    <div class="max-w-6xl mx-auto px-4 text-center">
+      <h1 class="text-4xl font-bold">Your Enrolled Classes</h1>
+      <p class="text-md mt-2 font-medium text-gray-300">Click on a class to view its content.</p>
+    </div>
+  </div>
+
+  <!-- Enrolled Classes List -->
+  <div class="max-w-6xl mx-auto px-4 py-10">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      {% for class in classes %}
+        <a href="{% url 'class_content' class.id %}" 
+           class="block rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105 hover:shadow-xl border border-gray-200
+           {% cycle 'bg-green-100' 'bg-yellow-100' 'bg-blue-100' 'bg-pink-100' 'bg-purple-100' 'bg-orange-100' %}
+           max-w-full sm:max-w-xs md:max-w-sm lg:max-w-md">
+          <h2 class="text-xl font-semibold text-gray-800 mb-2">{{ class.course_name }}</h2>
+          <p class="text-sm text-gray-600 mb-1"><strong>Department:</strong> {{ class.department_name }}</p>
+          <p class="text-sm text-gray-600 mb-1"><strong> {{ class.teacher }} </strong></p>
+          
+          {% if class.description %}
+            <p class="text-sm text-gray-700 mt-2"><strong>Description:</strong> {{ class.description }}</p>
+          {% else %}
+            <p class="text-sm text-gray-500 mt-2">No description provided.</p>
+          {% endif %}
+          
+          
+        </a>
+      {% empty %}
+        <p class="text-gray-600">You are not enrolled in any classes yet.</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
