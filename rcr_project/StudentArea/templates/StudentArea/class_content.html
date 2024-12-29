@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+
+{% block title %}Class Content{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-100">
+  <!-- Class Header Section -->
+  <div class="bg-gradient-to-b from-green-700 to-green-800 text-white py-12 shadow-md">
+    <div class="max-w-6xl mx-auto px-4 text-center">
+      <h1 class="text-4xl font-bold">{{ class.course_name }} - Class Content</h1>
+      <p class="text-md mt-2 font-medium text-gray-300">Explore the content uploaded for this class.</p>
+    </div>
+  </div>
+
+  <!-- Files Section -->
+  <div class="max-w-6xl mx-auto px-4 py-10">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6">Uploaded Files</h2>
+    {% if files %}
+      <ul class="space-y-6">
+        {% for file in files %}
+          <li class="bg-blue-100 p-6 rounded-md shadow-md hover:bg-blue-200 transition-all">
+            <a href="{{ file.file.url }}" class="text-blue-600 hover:underline">{{ file.file.name }}</a>
+            <p class="text-sm text-gray-600 mt-2">{{ file.description }}</p>
+            <p class="text-xs text-gray-500 mt-1">Uploaded on: {{ file.uploaded_at|date:"F j, Y" }}</p>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No files uploaded for this class yet.</p>
+    {% endif %}
+  </div>
+
+  <!-- Assignments Section -->
+  <div class="max-w-6xl mx-auto px-4 py-10">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6">Assignments</h2>
+    {% if assignments %}
+      <ul class="space-y-6">
+        {% for assignment in assignments %}
+          <li class="bg-yellow-100 p-6 rounded-md shadow-md hover:bg-yellow-200 transition-all">
+            <h3 class="text-lg font-medium text-gray-800">{{ assignment.title }}</h3>
+            <p class="text-sm text-gray-600 mt-2">{{ assignment.description }}</p>
+            <p class="text-sm text-gray-600"><strong>Due Date:</strong> {{ assignment.due_date|date:"F j, Y" }}</p>
+            <a href="{{ assignment.file.url }}" class="text-blue-600 hover:underline">Download Assignment</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No assignments posted for this class yet.</p>
+    {% endif %}
+  </div>
+
+  <!-- Announcements Section -->
+  <div class="max-w-6xl mx-auto px-4 py-10">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6">Announcements</h2>
+    {% if announcements %}
+      <ul class="space-y-6">
+        {% for announcement in announcements %}
+          <li class="bg-pink-100 p-6 rounded-md shadow-md hover:bg-pink-200 transition-all">
+            <h3 class="text-lg font-medium text-gray-800">{{ announcement.title }}</h3>
+            <p class="text-sm text-gray-600 mt-2">{{ announcement.content }}</p>
+            <p class="text-xs text-gray-500 mt-1">Posted on: {{ announcement.date_created|date:"F j, Y" }}</p>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No announcements posted for this class yet.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
