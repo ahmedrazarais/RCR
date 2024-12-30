@@ -1,23 +1,24 @@
-# Mark Python files as detectable
-*.py linguist-detectable
-
-# Reduce HTML impact
+# Treat HTML as vendored (ignored in language stats)
 templates/**/*.html linguist-vendored
 
-# Reduce CSS and Tailwind impact
+# Treat CSS as vendored
 static/css/**/*.css linguist-vendored
+
+# Treat Tailwind as vendored
 static/css/tailwind.css linguist-vendored
 
-# Vendor JavaScript files
+# Treat JavaScript as vendored
 static/js/**/*.js linguist-vendored
 
-# Reduce image and asset impact
+# Treat images and assets as vendored
 static/images/**/* linguist-vendored
 *.png linguist-vendored
 *.jpg linguist-vendored
 *.svg linguist-vendored
 
-# Ignore generated files and documentation
+# Ignore auto-generated files
 migrations/**/* linguist-generated
 *.pyc linguist-generated
+
+# Ignore markdown/documentation
 *.md linguist-documentation
