@@ -1,24 +1,18 @@
-# Treat HTML as vendored (ignored in language stats)
-templates/**/*.html linguist-vendored
+# Mark HTML templates as vendored
+templates/* linguist-vendored
+*.html linguist-vendored
 
-# Treat CSS as vendored
-static/css/**/*.css linguist-vendored
+# Mark static files as vendored
+static/* linguist-vendored
+assets/* linguist-vendored
 
-# Treat Tailwind as vendored
-static/css/tailwind.css linguist-vendored
+# Exclude CSS and JS files
+*.css linguist-vendored
+*.js linguist-vendored
 
-# Treat JavaScript as vendored
-static/js/**/*.js linguist-vendored
+# Treat migrations and other non-core Python files as generated
+migrations/* linguist-generated
 
-# Treat images and assets as vendored
-static/images/**/* linguist-vendored
-*.png linguist-vendored
-*.jpg linguist-vendored
-*.svg linguist-vendored
-
-# Ignore auto-generated files
-migrations/**/* linguist-generated
-*.pyc linguist-generated
-
-# Ignore markdown/documentation
+# Exclude README and documentation files
 *.md linguist-documentation
+docs/* linguist-documentation
