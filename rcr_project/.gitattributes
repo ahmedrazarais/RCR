@@ -1,20 +1,23 @@
-# Reduce HTML influence: Exclude less relevant HTML files
-templates/*.html linguist-detectable
-templates/partials/* linguist-vendored
-templates/extras/* linguist-vendored
+# Mark major Python files as linguist-detectable
+*.py linguist-detectable
 
-# Include key CSS files but exclude large Tailwind-generated files
-static/css/main.css linguist-detectable
+# Reduce HTML impact
+templates/**/*.html linguist-vendored
+
+# Reduce CSS impact
 static/css/tailwind.css linguist-vendored
+static/css/**/*.css linguist-vendored
 
-# Reduce impact of JavaScript and static assets
-static/js/* linguist-vendored
-static/images/* linguist-vendored
+# Vendor all JavaScript files
+static/js/**/*.js linguist-vendored
 
-# Exclude migrations and generated Python files
-migrations/* linguist-generated
+# Minimize the impact of static assets
+static/images/**/* linguist-vendored
+*.png linguist-vendored
+*.jpg linguist-vendored
+*.svg linguist-vendored
+
+# Ignore migrations, compiled files, and documentation
+migrations/**/* linguist-generated
 *.pyc linguist-generated
-
-# Documentation files don't count toward language stats
 *.md linguist-documentation
-docs/* linguist-documentation
