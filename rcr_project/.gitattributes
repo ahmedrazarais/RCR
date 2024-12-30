@@ -1,18 +1,20 @@
-# Mark HTML templates as vendored
-templates/* linguist-vendored
-*.html linguist-vendored
+# Exclude specific static and vendor files from language stats
+static/js/* linguist-vendored
+static/vendor/* linguist-vendored
 
-# Mark static files as vendored
-static/* linguist-vendored
-assets/* linguist-vendored
+# Include important HTML files (do not mark all HTML as vendored)
+templates/*.html linguist-detectable
 
-# Exclude CSS and JS files
-*.css linguist-vendored
-*.js linguist-vendored
+# Exclude less significant HTML or Tailwind files
+templates/partials/* linguist-vendored
 
-# Treat migrations and other non-core Python files as generated
-migrations/* linguist-generated
+# Include CSS files but exclude large Tailwind-generated files
+static/css/main.css linguist-detectable
+static/css/tailwind.css linguist-vendored
 
-# Exclude README and documentation files
+# Exclude documentation and readme files
 *.md linguist-documentation
 docs/* linguist-documentation
+
+# Ensure migrations or generated Python files are excluded
+migrations/* linguist-generated
